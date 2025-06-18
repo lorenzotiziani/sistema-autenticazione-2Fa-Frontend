@@ -1,0 +1,4 @@
+<div *ngIf="currentNotification" [ngClass]="currentNotification.type + '-notification'" class="notification-box">
+  <span>{{ currentNotification.message }}</span>
+  <button (click)="closeNotification()">X</button>
+</div>

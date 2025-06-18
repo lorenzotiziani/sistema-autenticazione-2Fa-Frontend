@@ -1,0 +1,25 @@
+<div style="text-align:center;">
+  <h1>Benvenuto nella tua Dashboard!</h1>
+  <p>Sei loggato con successo.</p>
+  <button (click)="logout()">Logout</button>
+  <button (click)="enable2fa()">Abilita 2FA</button>
+  <button (click)="disable2fa()">Disabilita 2FA</button>
+</div>
+
+<div *ngIf="show2FAEnableForm" style="border: 1px solid #ccc; padding: 20px; margin-top: 20px;">
+  <h3>Abilita Autenticazione a Due Fattori (2FA)</h3>
+  <div *ngIf="qrCodeBase64">
+    <p>Scansiona questo QR Code con la tua app di autenticazione (es. Google Authenticator):</p>
+    <img [src]="'data:image/png;base64,' + qrCodeBase64" alt="QR Code 2FA">
+    <p>Oppure inserisci manualmente il codice: <strong>{{ manualCode }}</strong></p>
+  </div>
+
+</div>
+
+<div *ngIf="show2FADisableConfirm" style="border: 1px solid #ccc; padding: 20px; margin-top: 20px;">
+  <h3>Disabilita Autenticazione a Due Fattori (2FA)</h3>
+  <p>Sei sicuro di voler disabilitare la 2FA?</p>
+  <button (click)="confirmDisable2FA()">Conferma Disabilitazione</button>
+  <button (click)="cancel2FADisable()">Annulla</button>
+  <p *ngIf="twoFAMessage" [style.color]="twoFAError ? 'red' : 'green'">{{ twoFAMessage }}</p>
+</div>
