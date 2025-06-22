@@ -1,25 +1,34 @@
-<div style="text-align:center;">
-  <h1>Benvenuto nella tua Dashboard!</h1>
-  <p>Sei loggato con successo.</p>
-  <button (click)="logout()">Logout</button>
-  <button (click)="enable2fa()">Abilita 2FA</button>
-  <button (click)="disable2fa()">Disabilita 2FA</button>
-</div>
-
-<div *ngIf="show2FAEnableForm" style="border: 1px solid #ccc; padding: 20px; margin-top: 20px;">
-  <h3>Abilita Autenticazione a Due Fattori (2FA)</h3>
-  <div *ngIf="qrCodeBase64">
-    <p>Scansiona questo QR Code con la tua app di autenticazione (es. Google Authenticator):</p>
-    <img [src]="'data:image/png;base64,' + qrCodeBase64" alt="QR Code 2FA">
-    <p>Oppure inserisci manualmente il codice: <strong>{{ manualCode }}</strong></p>
+<div class="container text-center mt-5">
+  <div class="card shadow-sm p-4">
+    <h1 class="mb-3">Benvenuto nella tua Dashboard!</h1>
+    <p class="mb-4">Sei loggato con successo.</p>
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+      <button (click)="logout()" class="btn btn-outline-danger">Logout</button>
+      <button (click)="enable2fa()" class="btn btn-outline-primary">Abilita 2FA</button>
+      <button (click)="disable2fa()" class="btn btn-outline-secondary">Disabilita 2FA</button>
+    </div>
   </div>
 
-</div>
+  <!-- Form Abilitazione 2FA -->
+  <div *ngIf="show2FAEnableForm" class="card mt-4 p-4 shadow-sm border-primary">
+    <h3 class="mb-3 text-primary">Abilita Autenticazione a Due Fattori (2FA)</h3>
+    <div *ngIf="qrCodeBase64">
+      <p>Scansiona questo QR Code con la tua app di autenticazione (es. Google Authenticator):</p>
+      <img [src]="'data:image/png;base64,' + qrCodeBase64" alt="QR Code 2FA" class="img-fluid mb-3">
+      <p>Oppure inserisci manualmente il codice: <strong>{{ manualCode }}</strong></p>
+    </div>
+  </div>
 
-<div *ngIf="show2FADisableConfirm" style="border: 1px solid #ccc; padding: 20px; margin-top: 20px;">
-  <h3>Disabilita Autenticazione a Due Fattori (2FA)</h3>
-  <p>Sei sicuro di voler disabilitare la 2FA?</p>
-  <button (click)="confirmDisable2FA()">Conferma Disabilitazione</button>
-  <button (click)="cancel2FADisable()">Annulla</button>
-  <p *ngIf="twoFAMessage" [style.color]="twoFAError ? 'red' : 'green'">{{ twoFAMessage }}</p>
+  <!-- Conferma Disabilitazione 2FA -->
+  <div *ngIf="show2FADisableConfirm" class="card mt-4 p-4 shadow-sm border-danger">
+    <h3 class="mb-3 text-danger">Disabilita Autenticazione a Due Fattori (2FA)</h3>
+    <p>Sei sicuro di voler disabilitare la 2FA?</p>
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mt-3">
+      <button (click)="confirmDisable2FA()" class="btn btn-danger">Conferma Disabilitazione</button>
+      <button (click)="cancel2FADisable()" class="btn btn-outline-secondary">Annulla</button>
+    </div>
+    <p *ngIf="twoFAMessage" class="mt-3" [ngClass]="{'text-danger': twoFAError, 'text-success': !twoFAError}">
+      {{ twoFAMessage }}
+    </p>
+  </div>
 </div>

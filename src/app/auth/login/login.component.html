@@ -1,26 +1,30 @@
-<h2>Accedi</h2>
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Accedi</h2>
 
-<form (ngSubmit)="onLogin()" *ngIf="!showOtpForm">
-  <div>
-    <label for="email">Email:</label>
-    <input type="email" id="email" [(ngModel)]="email" name="email" required>
-  </div>
-  <div>
-    <label for="password">Password:</label>
-    <input type="password" id="password" [(ngModel)]="password" name="password" required>
-  </div>
-  <button type="submit">Login</button>
-</form>
+  <form (ngSubmit)="onLogin()" *ngIf="!showOtpForm" class="card p-4 shadow-sm">
+    <div class="mb-3">
+      <label for="email" class="form-label">Email:</label>
+      <input type="email" id="email" class="form-control" [(ngModel)]="email" name="email" required>
+    </div>
 
-<form (ngSubmit)="onVerifyOtp()" *ngIf="showOtpForm">
-  <h3>Verifica OTP</h3>
-  <div>
-    <label for="otpCode">Codice OTP:</label>
-    <input type="text" id="otpCode" [(ngModel)]="otpCode" name="otpCode" required>
-  </div>
-  <button type="submit">Verifica OTP</button>
-</form>
+    <div class="mb-3">
+      <label for="password" class="form-label">Password:</label>
+      <input type="password" id="password" class="form-control" [(ngModel)]="password" name="password" required>
+    </div>
 
-<p *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</p>
-<p *ngIf="successMessage" style="color: green;">{{ successMessage }}</p>
-<p>Non hai un account? <a routerLink="/register">Registrati qui</a></p>
+    <button type="submit" class="btn btn-primary w-100">Login</button>
+  </form>
+
+  <form (ngSubmit)="onVerifyOtp()" *ngIf="showOtpForm" class="card p-4 shadow-sm mt-4">
+    <h3 class="mb-3">Verifica OTP</h3>
+    <div class="mb-3">
+      <label for="otpCode" class="form-label">Codice OTP:</label>
+      <input type="text" id="otpCode" class="form-control" [(ngModel)]="otpCode" name="otpCode" required>
+    </div>
+    <button type="submit" class="btn btn-success w-100">Verifica OTP</button>
+  </form>
+
+  <p *ngIf="errorMessage" class="text-danger mt-3">{{ errorMessage }}</p>
+  <p *ngIf="successMessage" class="text-success mt-3">{{ successMessage }}</p>
+  <p class="text-center mt-3">Non hai un account? <a routerLink="/register">Registrati qui</a></p>
+</div>

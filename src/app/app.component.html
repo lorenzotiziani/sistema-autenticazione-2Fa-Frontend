@@ -1,13 +1,30 @@
-<app-notification></app-notification> <nav>
-  <ng-container *ngIf="!(authService.isAuthenticated$ | async)">
-    <a routerLink="/login" routerLinkActive="active">Login</a> |
-    <a routerLink="/register" routerLinkActive="active">Registrazione</a>
-  </ng-container>
+<app-notification></app-notification>
 
-  <ng-container *ngIf="authService.isAuthenticated$ | async">
-    <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a> |
-    <a (click)="logout()">Logout</a>
-  </ng-container>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3 mb-4">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/">MyApp</a>
+    <div class="collapse navbar-collapse justify-content-end">
+      <ul class="navbar-nav">
+        <ng-container *ngIf="!(authService.isAuthenticated$ | async)">
+          <li class="nav-item">
+            <a routerLink="/login" class="nav-link" routerLinkActive="active">Login</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/register" class="nav-link" routerLinkActive="active">Registrazione</a>
+          </li>
+        </ng-container>
+
+        <ng-container *ngIf="authService.isAuthenticated$ | async">
+          <li class="nav-item">
+            <a routerLink="/dashboard" class="nav-link" routerLinkActive="active">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a (click)="logout()" class="nav-link" style="cursor: pointer;">Logout</a>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+  </div>
 </nav>
-<hr>
+
 <router-outlet></router-outlet>

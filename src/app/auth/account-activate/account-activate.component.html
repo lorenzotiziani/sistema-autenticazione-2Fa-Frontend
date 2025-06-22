@@ -1,6 +1,11 @@
-<div style="text-align:center;">
-  <h2>Attivazione Account</h2>
-  <p [style.color]="isSuccess ? 'green' : 'red'">{{ message }}</p>
-  <p>Verrai reindirizzato alla pagina di login tra pochi secondi...</p>
-  <p>Se non vieni reindirizzato, clicca qui per <a routerLink="/login">Accedere</a></p>
+<div class="container text-center mt-5">
+  <div class="card shadow-sm p-4">
+    <h2 class="mb-3">Attivazione Account</h2>
+    <p [ngClass]="{'text-success': isSuccess, 'text-danger': !isSuccess}">{{ message }}</p>
+    <p>Verrai reindirizzato alla pagina di login tra pochi secondi...</p>
+    <p>
+      Se non vieni reindirizzato, clicca qui per
+      <a routerLink="/login" class="link-primary fw-bold">Accedere</a>
+    </p>
+  </div>
 </div>
