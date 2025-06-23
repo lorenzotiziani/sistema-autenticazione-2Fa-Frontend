@@ -1,7 +1,7 @@
 import { NotificationService } from './../../shared/notification.service';
 // src/app/auth/register/register.component.ts
 import { Component } from '@angular/core';
-import { AuthService } from '../../auth/auth.service'; // Assicurati che il percorso sia corretto
+import { AuthService } from '../../auth/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -21,7 +21,7 @@ export class RegisterComponent {
   constructor(private authService: AuthService, private router: Router,private notificationService:NotificationService) { }
 
   onRegister(): void {
-    this.errorMessage = ''; // Resetta messaggi ad ogni tentativo
+    this.errorMessage = '';
     this.successMessage = '';
 
     const userData = {
@@ -34,10 +34,7 @@ export class RegisterComponent {
     this.authService.register(userData).subscribe({
       next: (response) => {
         this.notificationService.show('success', response.message || 'Registrazione completata! Controlla la tua email per attivare l\'account.');
-        // Opzionale: reindirizza dopo un breve ritardo
-        // setTimeout(() => {
-        //   this.router.navigate(['/login']);
-        // }, 3000);
+
       },
       error: (err) => {
         console.error('Errore di registrazione:', err);

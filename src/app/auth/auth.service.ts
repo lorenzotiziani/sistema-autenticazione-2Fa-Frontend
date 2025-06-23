@@ -3,13 +3,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { AuthResponse } from './auth-response.model'; // <-- Importa la nuova interfaccia
+import { AuthResponse } from './auth-response.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  public baseUrl = 'http://localhost:8000/api/auth'; // <--- MODIFICA CON L'URL DEL TUO BACKEND DJANGO
+  public baseUrl = 'http://localhost:8000/api/auth';
 
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(this.hasTokens());
   isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
@@ -20,14 +20,13 @@ export class AuthService {
     return !!localStorage.getItem('access_token') && !!localStorage.getItem('refresh_token');
   }
 
-  register(userData: any): Observable<AuthResponse> { // Specifica il tipo di ritorno
+  register(userData: any): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.baseUrl}/register/`, userData);
   }
 
-  login(credentials: any): Observable<AuthResponse> { // Specifica il tipo di ritorno
+  login(credentials: any): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.baseUrl}/login/`, credentials).pipe(
       tap(response => {
-        // TypeScript ora sa che 'response' può avere 'access' e 'refresh'
         if (response.access && response.refresh) {
           this.setTokens(response.access, response.refresh);
           this.isAuthenticatedSubject.next(true);
@@ -36,7 +35,7 @@ export class AuthService {
     );
   }
 
-  verifyOtp(otpData: { otp: string; temp_token?: string }): Observable<AuthResponse> { // Specifica il tipo di ritorno
+  verifyOtp(otpData: { otp: string; temp_token?: string }): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.baseUrl}/login/verify-otp/`, otpData).pipe(
       tap(response => {
         if (response.access && response.refresh) {
@@ -48,15 +47,11 @@ export class AuthService {
   }
 
   enable2FA(otp: string | null = null): Observable<AuthResponse> {
-      // If you pass an OTP, it's for the final verification after scanning the QR
-      // The backend should have an endpoint that expects an OTP and validates it
-      // against the user's *newly set up* 2FA secret (which happened when they initially called enable2FA without OTP).
+
       const body = otp ? { otp: otp } : {};
-      // Ensure this endpoint is correct for your Django backend to VERIFY the OTP
-      // after QR code generation. It should be a protected endpoint.
+
       return this.http.post<AuthResponse>(`${this.baseUrl}/2fa/enable/`, body).pipe(
         tap(response => {
-            // Update tokens after 2FA activation if new tokens are returned
           if (response.access && response.refresh) {
             this.setTokens(response.access, response.refresh);
           }
@@ -64,7 +59,7 @@ export class AuthService {
       );
     }
 
-  disable2FA(): Observable<AuthResponse> { // Specifica il tipo di ritorno
+  disable2FA(): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.baseUrl}/2fa/disable/`, {}).pipe(
       tap(response => {
         if (response.access && response.refresh) {

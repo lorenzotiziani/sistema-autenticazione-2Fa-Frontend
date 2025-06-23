@@ -1,8 +1,7 @@
 // src/app/auth/account-activate/account-activate.component.ts
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NotificationService } from '../../shared/notification.service'; // Per le notifiche
-
+import { NotificationService } from '../../shared/notification.service';
 @Component({
   selector: 'app-account-activate',
   templateUrl: './account-activate.component.html',
@@ -16,20 +15,20 @@ export class AccountActivateComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private notificationService: NotificationService // Inietta il servizio
+    private notificationService: NotificationService
   ) { }
 
   ngOnInit(): void {
 
 
 
-    // Per ora, un semplice messaggio e un reindirizzamento dopo un po'
+
     this.message = 'Il tuo account è stato attivato con successo! Ora puoi effettuare il login.';
     this.isSuccess = true;
     this.notificationService.show('success', this.message);
 
     setTimeout(() => {
       this.router.navigate(['/login']);
-    }, 5000); // Reindirizza al login dopo 5 secondi
+    }, 5000);//5sec
   }
 }

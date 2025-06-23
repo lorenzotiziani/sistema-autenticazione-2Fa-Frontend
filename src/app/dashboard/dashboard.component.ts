@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
-import { NotificationService } from '../shared/notification.service'; // Import for notifications
+import { NotificationService } from '../shared/notification.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,17 +16,16 @@ export class DashboardComponent implements OnInit {
   otpVerifyCode: string = '';
   show2FAEnableForm: boolean = false;
   show2FADisableConfirm: boolean = false;
-  twoFAMessage: string = ''; // No longer strictly needed if using NotificationService for all messages
-  twoFAError: boolean = false; // No longer strictly needed
+  twoFAMessage: string = '';
+  twoFAError: boolean = false;
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private notificationService: NotificationService // Injected
+    private notificationService: NotificationService
   ) { }
 
   ngOnInit(): void {
-    // Optional: Fetch user 2FA status from backend here if needed
   }
 
   logout(): void {
@@ -36,8 +35,8 @@ export class DashboardComponent implements OnInit {
   }
 
   enable2fa(): void {
-    this.notificationService.clear(); // Clear previous messages
-    this.show2FADisableConfirm = false; // Hide disable form
+    this.notificationService.clear();
+    this.show2FADisableConfirm = false;
 
     this.authService.enable2FA().subscribe({
       next: (response) => {
@@ -47,18 +46,16 @@ export class DashboardComponent implements OnInit {
           this.show2FAEnableForm = true;
           this.notificationService.show('info', 'Scansiona il QR Code e inserisci il codice OTP per completare l\'abilitazione.');
         } else {
-          // This case might mean 2FA is already enabled or another message
           this.notificationService.show('info', response.message || '2FA setup initiated, check QR or already enabled.');
           if (!response.qr_code_base64) {
-            // If no QR, maybe the backend says it's already enabled
-            this.show2FAEnableForm = false; // Keep form hidden if no QR to scan
+            this.show2FAEnableForm = false;
           }
         }
       },
       error: (err) => {
         console.error('Errore durante l\'abilitazione 2FA (richiesta iniziale QR):', err);
         this.notificationService.show('error', err.error?.message || 'Errore nell\'abilitare la 2FA.');
-        this.show2FAEnableForm = false; // Hide form on error
+        this.show2FAEnableForm = false;
       }
     });
   }
@@ -71,11 +68,11 @@ export class DashboardComponent implements OnInit {
       return;
     }
 
-    // This is the key change: Call enable2FA with the OTP, not verifyOtp
+
     this.authService.enable2FA(this.otpVerifyCode).subscribe({
       next: (response) => {
         this.notificationService.show('success', response.message || '2FA abilitata e verificata con successo!');
-        this.show2FAEnableForm = false; // Hide the form after success
+        this.show2FAEnableForm = false;
         this.qrCodeBase64 = null;
         this.manualCode = null;
         this.otpVerifyCode = '';
@@ -97,8 +94,8 @@ export class DashboardComponent implements OnInit {
 
   disable2fa(): void {
     this.notificationService.clear();
-    this.show2FAEnableForm = false; // Hide enable form
-    this.show2FADisableConfirm = true; // Show disable confirmation
+    this.show2FAEnableForm = false;
+    this.show2FADisableConfirm = true;
     this.notificationService.show('info', 'Conferma la disabilitazione dell\'autenticazione a due fattori.');
   }
 

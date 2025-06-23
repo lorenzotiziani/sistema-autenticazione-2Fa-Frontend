@@ -1,4 +1,4 @@
-/* src/app/shared/notification/notification.component.css */
+
 .notification-box {
   padding: 10px 20px;
   margin-bottom: 15px;
@@ -33,5 +33,5 @@
   font-weight: bold;
   cursor: pointer;
   font-size: 1.2em;
-  color: inherit; /* Eredita il colore dal genitore */
+  color: inherit;
 }

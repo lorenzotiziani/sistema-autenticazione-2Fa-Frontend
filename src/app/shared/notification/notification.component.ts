@@ -29,7 +29,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
     }
   }
 
-  // Permette di chiudere la notifica manualmente
+
   closeNotification(): void {
     this.notificationService.clear();
   }

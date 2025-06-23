@@ -14,7 +14,7 @@ export class LoginComponent {
   email!: string;
   password!: string;
   otpCode: string = '';
-  tempToken: string = ''; // Per il token temporaneo usato nella 2FA
+  tempToken: string = '';
   showOtpForm: boolean = false;
   errorMessage: string = '';
   successMessage: string = '';
@@ -24,7 +24,7 @@ export class LoginComponent {
   onLogin(): void {
     this.errorMessage = '';
     this.successMessage = '';
-    this.showOtpForm = false; // Resetta lo stato del form OTP
+    this.showOtpForm = false;
     console.log('TEMP TOKEN RICEVUTO:', this.tempToken);
     const credentials = {
       email: this.email,

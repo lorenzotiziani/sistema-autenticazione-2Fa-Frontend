@@ -21,11 +21,11 @@ import { NotificationComponent } from './shared/notification/notification.compon
     HttpClientModule
   ],
    providers: [
-    // <-- Aggiungi qui la configurazione dell'Interceptor
+
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
-      multi: true // multi: true è obbligatorio perché possono esserci più interceptor
+      multi: true
     }
   ],
   bootstrap: [AppComponent]
